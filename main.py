@@ -28,22 +28,25 @@ def download_card_sets():
     while next_sib.name != "u" and next_sib is not None:
       while next_sib.name == "br" and next_sib is not None:
         next_sib = next_sib.next_sibling
-      if next_sib.strip() != "":
-        if len(next_sib.strip().split(" ", 1)[0]) == 8 and "/" not in next_sib.strip().split(" ", 1):
-          release_date = next_sib.strip().split(" ", 1)[0]
-          name = next_sib.strip().split(" ", 1)[1].strip()
-        else:
-          release_date = "TBD"
-          if "TBD" not in next_sib.strip().split(" ", 2)[2]:
-            name = next_sib.strip().split(" ", 2)[2]
-          else:
-            name = next_sib.strip().split("TBD", 1)[1].strip()
-        card_set = {
-          "name": name,
-          "release_date": release_date,
-          "category": cat.text.strip().strip(":").lower().replace(" ", "_"),
-        }
-        card_sets.append(card_set)
+        if next_sib is None:
+          break
+      if next_sib.name != "font":
+        if next_sib.strip() != "":
+          if len(next_sib.strip().split(" ", 1)[0]) == 8 and "/" not in next_sib.strip().split(" ", 1):
+            release_date = next_sib.strip().split(" ", 1)[0]
+            name = next_sib.strip().split(" ", 1)[1].strip()
+          # else:
+          #   release_date = "TBD"
+          #   if "TBD" not in next_sib.strip().split(" ", 2)[2]:
+          #     name = next_sib.strip().split(" ", 2)[2]
+          #   else:
+          #     name = next_sib.strip().split("TBD", 1)[1].strip()
+            card_set = {
+              "name": name,
+              "release_date": release_date,
+              "category": cat.text.strip().strip(":").lower().replace(" ", "_"),
+            }
+            card_sets.append(card_set)
       next_sib = next_sib.next_sibling
       if next_sib is None:
         break
@@ -70,7 +73,7 @@ def check_for_updates(card_sets):
   return new_sets, updated_sets
 
 def send_to_discord(new, updates):
-  webhook = "https://discord.com/api/webhooks/743242754313945098/xPfU3c8HfSQ2pqMxDdi3a0tJOEomUZbLCAzKlYxbWBl4MFLdD6XGwLjj9j-CNiAzzYZL"
+  webhook = os.environ["DISCORD_WEBHOOK"]
   for n in new:
     send_new_set(webhook, n)
     time.sleep(1)
