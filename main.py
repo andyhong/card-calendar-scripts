@@ -4,10 +4,14 @@ from selenium import webdriver
 from pymongo import MongoClient
 import time
 import os
+import json
 
 from discord import send_new_set, update_set
 
-client = MongoClient(os.environ["MONGO_URI"])
+with open('config.json') as config_file:
+  config = json.load(config_file)
+
+client = MongoClient(config["MONGO_URI"])
 db = client["tempest"]
 col = db["cards"]
 
@@ -73,7 +77,7 @@ def check_for_updates(card_sets):
   return new_sets, updated_sets
 
 def send_to_discord(new, updates):
-  webhook = os.environ["DISCORD_WEBHOOK"]
+  webhook = config["DISCORD_WEBHOOK"]
   for n in new:
     send_new_set(webhook, n)
     time.sleep(1)

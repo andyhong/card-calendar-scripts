@@ -24,7 +24,7 @@ def send_new_set(webhook, set_info):
 
   embed.add_field(
     name="View Full Calendar",
-    value="[Click here](https://docs.google.com/spreadsheets/d/1kNUzCE5_ixO62fZh3vFCIHf7Y-O7-kyFH7-N8Sximr0/edit?usp=sharing)",
+    value="[Click here](https://tempest.cards/)",
     inline=True
   )
 
@@ -64,7 +64,7 @@ def update_set(webhook, set_info):
 
   embed.add_field(
     name="View Full Calendar",
-    value="[Click here](https://docs.google.com/spreadsheets/d/1kNUzCE5_ixO62fZh3vFCIHf7Y-O7-kyFH7-N8Sximr0/edit?usp=sharing)",
+    value="[Click here](https://tempest.cards/)",
     inline=True
   )
 
