@@ -39,12 +39,6 @@ def download_card_sets():
           if len(next_sib.strip().split(" ", 1)[0]) == 8 and "/" not in next_sib.strip().split(" ", 1):
             release_date = next_sib.strip().split(" ", 1)[0]
             name = next_sib.strip().split(" ", 1)[1].strip()
-          # else:
-          #   release_date = "TBD"
-          #   if "TBD" not in next_sib.strip().split(" ", 2)[2]:
-          #     name = next_sib.strip().split(" ", 2)[2]
-          #   else:
-          #     name = next_sib.strip().split("TBD", 1)[1].strip()
             card_set = {
               "name": name,
               "release_date": release_date,
